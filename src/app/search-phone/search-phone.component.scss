@@ -1,0 +1,18 @@
+.content{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    .phones-item{
+        i{
+            margin-right: 5px;
+            color:#c6c6c6;
+            widows: 30px;
+            height: 30px;
+            display: inline-block;
+        &.diagonal{
+            transform: translateX(5px) rotateZ(-45deg);
+            margin-right: 10px;
+
+        }
+    }}
+    
+}

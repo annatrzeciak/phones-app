@@ -1,0 +1,88 @@
+<div class="content">
+  <div class="row">
+    <div class="col-sm-3">
+      <form (change)='loadPhones()'  [formGroup]="searchPhoneForm">
+        
+              <div class="form-group">
+                <label>Nazwa modelu:</label>
+                <input (input)="onSearchChange($event.target.value)" type="text" class="form-control"formControlName="model" >
+              </div>
+              
+         
+              <div class="form-group">
+                <label >Przekątna ekranu:</label>
+              
+                <nouislider  (change)='change()' formControlName="screen_diagonal" [connect]="true" [min]="diagonalRange[0]" [max]="diagonalRange[1]"  [(ngModel)]="diagonalRange"></nouislider>
+              </div>
+              <div id="slider-range"></div>
+              <div class="form-group">
+                  <label >Pamięć RAM:</label>
+                <nouislider formControlName="RAM" [connect]="true"[min]="RAMRange[0]" [max]="RAMRange[1]"  [(ngModel)]="RAMRange"></nouislider>
+                  
+                 
+                </div>
+  
+
+                  <div class="form-group">
+                      <label >Pamięć wewnętrzna:</label>
+                <nouislider formControlName="memory" [connect]="true" [min]="memoryRange[0]" [max]="memoryRange[1]"  [(ngModel)]="memoryRange"></nouislider>
+                      
+                    
+                    </div>
+                    <div class="form-group">
+                        <label >Pojemność baterii:</label>
+                       
+                <nouislider formControlName="battery" [connect]="true" [min]="batteryRange[0]" [max]="batteryRange[1]" [(ngModel)]="batteryRange"></nouislider>
+                        
+                      </div>
+         
+                      <div class="form-group">
+                          <label >Rozdzielczość ekranu:</label>
+                          <input type="checkbox"  class="form-control" formControlName="720x1440">720x1440px
+                          <input type="checkbox"  class="form-control" formControlName="720x1920">720x1920px
+                          
+                        </div>
+      </form>
+    
+    </div>
+
+
+
+    <div class="col-sm-9">
+      <p>Znaleziono: {{phones.length}} wyników</p>
+      <div class="row">
+        <div class="col-md-6" *ngFor='let phone of phones | paginate: { itemsPerPage: itemsPerPage, currentPage: page}'>
+          <div class="phones-item row">
+            <div class="col-3">
+              <img src="/assets/phone.jpg" alt="" class="img-fluid">
+            </div>
+            <div class="col-9 pl-0">
+              <h4>{{phone.model }}</h4>
+              <div class="row">
+                <div class="col-6 ">
+                  <div>
+                    <i class="fas fa-arrows-alt-h diagonal"></i>{{phone.screen_diagonal}} cali</div>
+                  <div>
+                    <i class="fas fa-memory"></i>{{phone.RAM || 'b.d.'}}  MB</div>
+                  <div>
+                    <i class="fas fa-battery-full"></i>{{phone.battery || 'b.d.'}} mAh</div>
+
+                </div>
+                <div class="col-6 ">
+                  <div>
+                    <i class="fas fa-arrows-alt"></i>{{phone.screen_resolution}}</div>
+                  <div>
+                    <i class="fas fa-database"></i>{{phone.memory|| 'b.d.'}} GB</div>
+                  <div>
+                    <i class="fas fa-code"></i>{{phone.system|| 'b.d.'}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+</div>
+          <pagination-controls class="mt-5" (pageChange)="page = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
