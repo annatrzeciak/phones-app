@@ -8,4 +8,5 @@ export class Phone {
     memory: number;
     battery: number;
     resolution: string;
+
   }

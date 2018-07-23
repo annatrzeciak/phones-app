@@ -7,7 +7,7 @@ import { PhoneService } from './services/phone.service';
 import {NgxPaginationModule} from 'ngx-pagination'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NouisliderModule } from 'ng2-nouislider';
-
+import * as $ from "jquery";
 
 @NgModule({
   declarations: [

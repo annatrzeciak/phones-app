@@ -25,7 +25,7 @@ export class PhoneService {
   // }
 
     return this.http
-      .post('https://code-way.com/post.php', model)
+      .post('http://localhost:8000/api/post.php', model)
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);
