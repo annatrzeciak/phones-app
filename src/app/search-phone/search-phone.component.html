@@ -64,12 +64,13 @@
         <div class="col-12">
           <div class="row content-phones">
             <p *ngIf='phones.length==0 && loading==false'>Brak danych do wyświetlenia</p>
-            <div *ngIf='loading'class="loading-animation"></div>
+            <div class="text-center w-100">
+            <div *ngIf='loading'class="loading-animation"></div></div>
             <div [ngClass]="!list? 'col-lg-4 col-sm-':'col-12'" *ngFor='let phone of phones | paginate: { itemsPerPage: itemsPerPage, currentPage: page}'>
               <div class="phones-item row">
 
                 <div [ngClass]="list?'col-sm-4':'col-12'">
-                  <img src="/assets/phone.jpg" alt="" class="img-fluid">
+                  <img src="/assets/phone.jpg" alt="{{phone.model }}" title='Grafika -{{phone.model }}'class="img-fluid">
                 </div>
                 <div [ngClass]="list?'col-sm-8':'col-12'">
                   <h4 class="text-center">{{phone.model }}</h4>

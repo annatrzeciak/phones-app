@@ -1,25 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "~nouislider/distribute/nouislider.min.css";
-body{
+body {
     background: url('assets/background.jpg');
     background-position: center;
-    background-repeat:no-repeat;
-    background-attachment: fixed; 
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     background-size: cover;
-                }
+    overflow-x: hidden;
+}
+
 ::-webkit-scrollbar {
     width: 7px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
+    background: #f1f1f1;
 }
 
 ::-webkit-scrollbar-thumb {
-    background:  rgba(63, 184, 175, 0.8);
+    background: rgba(63, 184, 175, 0.8);
 }
-::-webkit-scrollbar-thumb:hover {
-    background:  rgb(63, 184, 175);
 
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(63, 184, 175);
 }

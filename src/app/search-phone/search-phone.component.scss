@@ -9,8 +9,8 @@
     .searchFormContent {
         padding: 0 25px 0 0;
         position: fixed;
-        z-index: 10000;
-        transition:  all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+        z-index: 100;
+        transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
         .hidePanel {
             position: absolute;
             top: 5px;
@@ -19,13 +19,10 @@
             z-index: 1200;
             transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
             width: 30px;
-           
             &.hiddenPanel {
-color: #f1f1f1;
+                color: #f1f1f1;
                 left: 0;
-                transform:rotateZ(180deg);
-                
-                
+                transform: rotateZ(180deg);
             }
         }
         form {
@@ -75,7 +72,6 @@ color: #f1f1f1;
                         font-size: 11px;
                         color: #b7b7b7;
                     }
-                  
                 }
             }
             .tips-container {
@@ -111,7 +107,6 @@ color: #f1f1f1;
     }
     .box {
         transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-        overflow: hidden;
         .content-phones {
             padding: 15px;
             background: #f1f1f1;
@@ -123,11 +118,12 @@ color: #f1f1f1;
                 margin: 15px 0;
                 background: #fff;
                 box-shadow: 0 0 42px 0 rgba(0, 0, 0, .33);
-            transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-            height: 90%;;
-z-index: 2;             
-position: relative;   
-cursor: pointer;
+                transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+                height: 90%;
+                ;
+                z-index: 101;
+                position: relative;
+                cursor: pointer;
                 .col-6 {
                     padding: 0 10px;
                 }
@@ -142,25 +138,21 @@ cursor: pointer;
                         margin-right: 10px;
                     }
                 }
-                &:hover{
+                &:hover {
                     transform: scale(1.2);
-                    z-index: 3;
+                    z-index: 102;
                 }
             }
-            .loading-animation{
+            .loading-animation {
                 width: 100px;
                 height: 5px;
+                margin-right: auto;
+                margin-left: auto;
                 background: rgb(63, 184, 175);
-                position: absolute;
-                animation: loading 2s infinite;
+                animation: loading 2s infinite linear;
             }
-
         }
     }
-}
-
-.js-is-hidden {
-    display: none;
 }
 
 a {
@@ -174,7 +166,6 @@ a {
         opacity: 1;
     }
 }
-
 /deep/ .ngx-pagination {
     padding-left: 0;
     .current {
@@ -185,36 +176,41 @@ a {
 @media screen and (max-width: 767px) {
     .content {
         .searchFormContent {
-
             position: relative;
             padding: 0;
             margin-bottom: 20px;
             ;
-            .hidePanel{
+            .hidePanel {
                 display: none;
             }
-            form{
+            form {
                 transform: translateX(0%);
-        }
-        /deep/ .ngx-pagination {
-            a,
-            .current {
-                font-size: 12px;
-                padding: 5px;
+            }
+            /deep/ .ngx-pagination {
+                a,
+                .current {
+                    font-size: 12px;
+                    padding: 5px;
+                }
             }
         }
     }
 }
-}
 
-@keyframes loading{
-    0%{
-        left: -100px;
+@keyframes loading {
+    0% {
+        transform: translateX(0);
     }
-    50%{
-left: 100%;
+    25% {
+        transform: translateX(100%);
     }
-    100%{
- left: -100px;
+    50% {
+        transform: translateX(0%);
+    }
+    75% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
     }
 }
