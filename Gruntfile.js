@@ -6,8 +6,7 @@ grunt.initConfig({
         dev: {
             options: {
                 hostname: 'localhost',
-                base:'api',
-                open: true
+                base:'api'
             }
         }
     },
