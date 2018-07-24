@@ -1,41 +1,220 @@
-.content{
-    margin-top: 50px;
-    margin-bottom: 50px;
-    .phones-item{
-        i{
-            margin-right: 5px;
-            color:#c6c6c6;
-            widows: 30px;
-            height: 30px;
-            display: inline-block;
-        &.diagonal{
-            transform: translateX(5px) rotateZ(-45deg);
-            margin-right: 10px;
+@mixin calc($property, $expression) {
+    #{$property}: -webkit-calc(#{$expression});
+    #{$property}: -moz-calc(#{$expression});
+    #{$property}: calc(#{$expression});
+}
 
-        }
-    }}
-    .tips-container{
-        position: relative;
-    #tips{
-        display: none;
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        max-height: 500px;
-        overflow-y: scroll;
-        z-index: 100;
-        background: #fff;
-        margin-top: 3px;
-        border: 1px solid #c6c6c6;
-        a{
-            padding-left: 5px;
-            padding-right: 5px;
+.content {
+    padding: 20px;
+    .searchFormContent {
+        padding: 0 25px 0 0;
+        position: fixed;
+        z-index: 10000;
+        transition:  all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+        .hidePanel {
+            position: absolute;
+            top: 5px;
+            right: 30px;
             display: block;
-            cursor: pointer;
-            &:hover{
-                background: #f1f1f1;
+            z-index: 1200;
+            transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+            width: 30px;
+           
+            &.hiddenPanel {
+color: #f1f1f1;
+                left: 0;
+                transform:rotateZ(180deg);
+                
+                
             }
         }
-    }}
-    
+        form {
+            font-size: 14px;
+            background: #f1f1f1;
+            padding: 10px;
+            box-shadow: 0 0 42px 0 rgba(0, 0, 0, .33);
+            @include calc(height, "100vh - 40px");
+            overflow: hidden;
+            transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+            position: relative;
+            input {
+                border: 0;
+                border-bottom: 2px solid rgb(63, 184, 175);
+                border-radius: 0;
+            }
+            ::ng-deep {
+                .ng2-nouislider {
+                    margin: 0px 5px 5px;
+                    .noUi-target {
+                        height: 2px;
+                        border-radius: 0;
+                        border: 1px solid rgb(63, 184, 175);
+                        border: 0
+                    }
+                    .noUi-handle {
+                        height: 20px;
+                        width: 20px;
+                        border-radius: 0;
+                        border: 1px solid rgb(63, 184, 175);
+                        background: rgb(63, 184, 175);
+                        transform: translateY(-3px);
+                        right: -10px;
+                        &::after,
+                        &::before {
+                            width: 0;
+                        }
+                    }
+                }
+            }
+            .resolution-content {
+                font-size: 12px;
+                max-height: 50%;
+                overflow-x: hidden; // overflow-x: visible;
+                label {
+                    span {
+                        font-size: 11px;
+                        color: #b7b7b7;
+                    }
+                  
+                }
+            }
+            .tips-container {
+                position: relative;
+                #tips {
+                    display: none;
+                    position: absolute;
+                    height: 100%;
+                    width: 100%;
+                    max-height: 500px;
+                    overflow-y: scroll;
+                    z-index: 100;
+                    background: #fff;
+                    margin-top: 3px;
+                    border: 1px solid #c6c6c6;
+                    a {
+                        padding-left: 5px;
+                        padding-right: 5px;
+                        display: block;
+                        cursor: pointer;
+                        &:hover {
+                            background: #f1f1f1;
+                        }
+                    }
+                }
+            }
+            &.hidden {
+                transform: translateX(-150%);
+                overflow-x: visible;
+                overflow-y: scroll;
+            }
+        }
+    }
+    .box {
+        transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+        overflow: hidden;
+        .content-phones {
+            padding: 15px;
+            background: #f1f1f1;
+            box-shadow: 0 0 42px 0 rgba(0, 0, 0, .33);
+            height: 100%;
+            .phones-item {
+                font-size: 14px;
+                padding: 15px;
+                margin: 15px 0;
+                background: #fff;
+                box-shadow: 0 0 42px 0 rgba(0, 0, 0, .33);
+            transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+            height: 90%;;
+z-index: 2;             
+position: relative;   
+cursor: pointer;
+                .col-6 {
+                    padding: 0 10px;
+                }
+                i {
+                    font-size: 12px;
+                    margin-right: 5px;
+                    color: rgb(63, 184, 175);
+                    display: inline-block;
+                    position: relative;
+                    &.diagonal {
+                        transform: translateX(5px) rotateZ(-45deg);
+                        margin-right: 10px;
+                    }
+                }
+                &:hover{
+                    transform: scale(1.2);
+                    z-index: 3;
+                }
+            }
+            .loading-animation{
+                width: 100px;
+                height: 5px;
+                background: rgb(63, 184, 175);
+                position: absolute;
+                animation: loading 2s infinite;
+            }
+
+        }
+    }
+}
+
+.js-is-hidden {
+    display: none;
+}
+
+a {
+    cursor: pointer;
+    opacity: 0.5;
+    i {
+        font-size: 24px;
+    }
+    &.active,
+    &:hover {
+        opacity: 1;
+    }
+}
+
+/deep/ .ngx-pagination {
+    padding-left: 0;
+    .current {
+        background: rgb(63, 184, 175) !important;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .content {
+        .searchFormContent {
+
+            position: relative;
+            padding: 0;
+            margin-bottom: 20px;
+            ;
+            .hidePanel{
+                display: none;
+            }
+            form{
+                transform: translateX(0%);
+        }
+        /deep/ .ngx-pagination {
+            a,
+            .current {
+                font-size: 12px;
+                padding: 5px;
+            }
+        }
+    }
+}
+}
+
+@keyframes loading{
+    0%{
+        left: -100px;
+    }
+    50%{
+left: 100%;
+    }
+    100%{
+ left: -100px;
+    }
 }

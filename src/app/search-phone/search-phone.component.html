@@ -1,82 +1,104 @@
-<div class="content">
+<div class="content" (click)='closeTips($event)'>
   <div class="row">
-    <div class="col-sm-3">
-      <form [formGroup]="searchPhoneForm">
-
-        <!-- <span *ngFor='let filter of filters'>{{filter[0]}} - {{filter[1]}}</span> -->
+    <div class="col-12 white-text">
+    </div>
+    <div class="col-lg-3  col-md-4 searchFormContent">
+      <a [ngClass]="hidden? 'hiddenPanel hidePanel':'hidePanel'" (click)='hidden=!hidden'>
+        <i class="fas fa-arrow-circle-left"></i>
+      </a>
+      <form id='searchForm' [ngClass]="{'hidden':hidden}" [formGroup]="searchPhoneForm">
         <div class="form-group tips-container">
           <label>Nazwa modelu:</label>
-          <input  (click)='showTips()' id='searchPhoneInput'(input)="loadPhones('model')" type="text" class="form-control" formControlName="model">
-          <div id="tips" >
+          <input placeholder="Wpisz model" (click)='showTips()' id='searchPhoneInput' (input)="loadPhones('model')" type="text" class="form-control"
+            formControlName="model">
+          <div id="tips">
             <a *ngFor='let model of data.model; let i=index ' (click)='setInputValue(model)'>{{model}}</a>
-            </div>
+          </div>
         </div>
         <div class="form-group">
-          <label>Przekątna ekranu: {{data.diagonal[0]}} - {{data.diagonal[data.diagonal.length-1]}}</label>
+          <label>Przekątna ekranu: {{data.diagonalRange[0]}} - {{data.diagonalRange[1]}}</label>
           <nouislider #diagonalSlider (change)='loadPhones("screen_diagonal")' [step]="0.1" formControlName="screen_diagonal" [connect]="true"
-          [min]="1" [max]="100000"[(ngModel)]="data.diagonalRange"></nouislider>
+            [min]="1" [max]="100000" [(ngModel)]="data.diagonalRange"></nouislider>
         </div>
         <div class="form-group">
-          <label>Pamięć RAM: {{data.RAM[0]}} - {{data.RAM[data.RAM.length-1]}}</label>
+          <label>Pamięć RAM: {{data.RAMRange[0]}} - {{data.RAMRange[1]}}</label>
           <nouislider #RAMSlider (change)='loadPhones("RAM")' [step]="2" formControlName="RAM" [connect]="true" [min]="1" [max]="100000"
             [(ngModel)]="data.RAMRange"></nouislider>
         </div>
         <div class="form-group">
-          <label>Pamięć wewnętrzna: {{data.memory[0]}} - {{data.memory[data.memory.length-1]}}</label>
-          <nouislider #memorySlider (change)='loadPhones("memory")' [step]="1" formControlName="memory" [connect]="true" [min]="1" [max]="100000"[(ngModel)]="data.memoryRange"></nouislider>
+          <label>Pamięć wewnętrzna: {{data.memoryRange[0]}} - {{data.memoryRange[1]}}</label>
+          <nouislider #memorySlider (change)='loadPhones("memory")' [step]="1" formControlName="memory" [connect]="true" [min]="1"
+            [max]="100000" [(ngModel)]="data.memoryRange"></nouislider>
         </div>
         <div class="form-group">
-          <label>Pojemność baterii: {{data.battery[0]}} - {{data.battery[data.battery.length-1]}}</label>
-          <nouislider #batterySlider (change)='loadPhones("battery")' formControlName="battery" [connect]="true" [min]="1" [max]="100000"
+          <label>Pojemność baterii: {{data.batteryRange[0]}} - {{data.batteryRange[1]}}</label>
+          <nouislider #batterySlider (change)='loadPhones("battery")' formControlName="battery" [connect]="true" [min]="1" [max]="100000" [step]='10'
             [(ngModel)]="data.batteryRange"></nouislider>
         </div>
-        <div class="form-group">
+        <div class="form-group resolution-content">
           <label>Rozdzielczość ekranu: </label>
           <br>
+          <div class="row">
+            <label class="col-md-6 col-sm-4 col-xs-6" *ngFor="let res of data.resolution">
 
-          <label *ngFor="let res of data.resolution">
-            <input type="checkbox" (change)="onChange(res['name'], $event.target.checked)" [checked]='res["checked"]'> {{res["name"]}} ({{res['count']}})<br>
-          </label>
-
-
-            <!-- <input (change)="loadPhones('resolution'); " checked="false" type="checkbox" value="{{res[0]}}" class="form-control" formControlName='{{res[0]}}' >{{res[0]}}</label> -->
+              <input type="checkbox" (change)="onChange(res['name'], $event.target.checked)" [checked]='res["checked"]'> {{res["name"]}}
+              <span>({{res['count']}})</span>
+            </label>
+          </div>
         </div>
       </form>
     </div>
-    <div class="col-sm-9">
-      <p>Znaleziono: {{phones.length}} wyników</p>
+    <div [ngClass]="hidden? 'col-12 box':'col-lg-9 col-md-8 offset-lg-3 offset-md-4 box'">
       <div class="row">
-        <div class="col-md-6" *ngFor='let phone of phones | paginate: { itemsPerPage: itemsPerPage, currentPage: page}'>
-          <div class="phones-item row">
-            <div class="col-3">
-              <img src="/assets/phone.jpg" alt="" class="img-fluid">
-            </div>
-            <div class="col-9 pl-0">
-              <h4>{{phone.model }}</h4>
-              <div class="row">
-                <div class="col-6 ">
-                  <div>
-                    <i class="fas fa-arrows-alt-h diagonal"></i>{{phone.screen_diagonal}} cali</div>
-                  <div>
-                    <i class="fas fa-memory"></i>{{phone.RAM || 'b.d.'}} MB</div>
-                  <div>
-                    <i class="fas fa-battery-full"></i>{{phone.battery || 'b.d.'}} mAh</div>
+        <div class="col-12">
+          <p class='text-right text-light'>Znaleziono: {{phones.length}} wyników</p>
+          <p class="text-right text-light">
+            <a (click)='list=true ' [ngClass]="{'active':list}" class="m-2" title="Widok listy">
+              <i class="fas fa-list"></i>
+            </a>
+            <a [ngClass]="{'active':!list}" (click)='list=false ' class="m-2" title="Widok kalefków">
+              <i class="fas fa-th"></i>
+            </a>
+          </p>
+        </div>
+        <div class="col-12">
+          <div class="row content-phones">
+            <p *ngIf='phones.length==0 && loading==false'>Brak danych do wyświetlenia</p>
+            <div *ngIf='loading'class="loading-animation"></div>
+            <div [ngClass]="!list? 'col-lg-4 col-sm-':'col-12'" *ngFor='let phone of phones | paginate: { itemsPerPage: itemsPerPage, currentPage: page}'>
+              <div class="phones-item row">
 
+                <div [ngClass]="list?'col-sm-4':'col-12'">
+                  <img src="/assets/phone.jpg" alt="" class="img-fluid">
                 </div>
-                <div class="col-6 ">
-                  <div>
-                    <i class="fas fa-arrows-alt"></i>{{phone.screen_resolution}}</div>
-                  <div>
-                    <i class="fas fa-database"></i>{{phone.memory|| 'b.d.'}} GB</div>
-                  <div>
-                    <i class="fas fa-code"></i>{{phone.system|| 'b.d.'}}</div>
+                <div [ngClass]="list?'col-sm-8':'col-12'">
+                  <h4 class="text-center">{{phone.model }}</h4>
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="mb-2">
+                        <i class="fas fa-arrows-alt-h diagonal"></i>{{phone.screen_diagonal}} cali</div>
+                      <div class="mb-2">
+                        <i class="fas fa-memory"></i>{{phone.RAM || 'b.d.'}} MB</div>
+                      <div class="mb-2">
+                        <i class="fas fa-battery-full"></i>{{phone.battery || 'b.d.'}} mAh</div>
+                    </div>
+                    <div class="col-6">
+                      <div class="mb-2">
+                        <i class="fas fa-arrows-alt"></i>{{phone.screen_resolution}}</div>
+                      <div class="mb-2">
+                        <i class="fas fa-database"></i>{{phone.memory|| 'b.d.'}} GB</div>
+                      <div class="mb-2">
+                        <i class="fas fa-code"></i>{{phone.system|| 'b.d.'}}</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+            <div class="col-12 text-center">
+              <pagination-controls class="mt-5" *ngIf='phones.length>50' [directionLinks]='false' (pageChange)="page = $event"></pagination-controls>
+            </div>
           </div>
-
         </div>
-        <pagination-controls class="mt-5" (pageChange)="page = $event"></pagination-controls>
       </div>
     </div>
   </div>
